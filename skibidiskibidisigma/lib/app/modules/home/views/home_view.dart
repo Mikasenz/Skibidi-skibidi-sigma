@@ -10,13 +10,13 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 193, 167, 1),
+        backgroundColor: const Color.fromRGBO(255, 193, 167, 1),
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
+            Text(
               'Telusuri',
               style: TextStyle(
                 color: Colors.black,
@@ -26,7 +26,7 @@ class HomeView extends GetView<HomeController> {
             ),
             CircleAvatar(
               backgroundImage: AssetImage(
-                  'lib/assets/icon/sigma.png'), // Ganti dengan path gambar profil
+                  'assets/icon/sigma.png'), // Ganti dengan path gambar profil
             ),
           ],
         ),
@@ -44,8 +44,8 @@ class HomeView extends GetView<HomeController> {
                     icon: const Icon(Icons.directions_walk),
                     label: const Text('Rencanakan Trip'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                      foregroundColor: Color.fromARGB(255, 0, 0, 0),
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                      foregroundColor: const Color.fromARGB(255, 0, 0, 0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -71,7 +71,6 @@ class HomeView extends GetView<HomeController> {
                         const SizedBox(height: 8),
                         ElevatedButton(
                           onPressed: () {},
-                          child: const Text('Terus Cari'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             foregroundColor: Colors.white,
@@ -81,6 +80,7 @@ class HomeView extends GetView<HomeController> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                           ),
+                          child: const Text('Terus Cari'),
                         ),
                       ],
                     ),
@@ -107,12 +107,12 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       _recommendationCard(
                         imagePath:
-                            'lib/assets/icon/bromo.png', // Ganti dengan path gambar
+                            'assets/icon/bromo.png', // Ganti dengan path gambar
                         title: '1 Day - Tour Bromo Sunrise',
                       ),
                       _recommendationCard(
                         imagePath:
-                            'lib/assets/icon/pantai.png', // Ganti dengan path gambar
+                            'assets/icon/pantai.png', // Ganti dengan path gambar
                         title: '1 Day - Pantai Balekambang',
                       ),
                     ],
@@ -127,7 +127,15 @@ class HomeView extends GetView<HomeController> {
         type: BottomNavigationBarType.fixed,
         currentIndex: 0,
         onTap: (index) {
-          // Handle tab change
+          if (index == 0) {
+            Get.toNamed(Routes.HOME);
+          } else if (index == 1){
+            Get.toNamed(Routes.SEARCH);
+          } else if (index == 2){
+            Get.toNamed(Routes.PLAN);
+          } else {
+            print('Feature not available yet');
+          }
         },
         items: const [
           BottomNavigationBarItem(
@@ -141,6 +149,7 @@ class HomeView extends GetView<HomeController> {
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: 'Rencana',
+            
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.rate_review),
@@ -155,9 +164,11 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  
+
   Widget _recommendationCard(
       {required String imagePath, required String title}) {
-    return Container(
+    return SizedBox(
       width: 150,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
